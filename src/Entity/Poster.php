@@ -33,6 +33,9 @@ class Poster
     #[ORM\OneToMany(targetEntity: Command::class, mappedBy: 'poster', orphanRemoval: true)]
     private Collection $commands;
 
+    #[ORM\Column(length: 255)]
+    private ?string $posterFile = null;
+
     public function __construct()
     {
         $this->commands = new ArrayCollection();
@@ -129,6 +132,18 @@ class Poster
                 $command->setPoster(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPosterFile(): ?string
+    {
+        return $this->posterFile;
+    }
+
+    public function setPosterFile(string $posterFile): static
+    {
+        $this->posterFile = $posterFile;
 
         return $this;
     }
